@@ -1,0 +1,47 @@
+# This requires the following package to be installed prior to running
+# this playbook.
+# Run this command:
+# ansible-galaxy collection install ansible.posix
+#
+# Once the playbook ran, use this commands to verify on the client:
+#
+# Check if package installed:
+# rpm -qa | grep http
+#
+# Check httpd package service status:
+# systemctl status httpd
+#
+# Check firewall service status:
+# systemctl status firewalld
+#
+# Check if http service is enabled in firewalld:
+# (in the services, you should see http)
+# firewall-cmd --list-all
+# 
+# Open a web browser and check if you can connect to the client's ip
+
+---
+- name: Setup httpd and open firewall port
+  hosts: all
+
+  tasks:
+          - name: Install apache packages
+            yum:
+                    name: httpd
+                    state: present
+
+          - name: Start httpd
+            service:
+                    name: httpd
+                    state: started
+
+          - name: Open port 80 for http access
+            firewalld:
+                    service: http
+                    permanent: true # means I want to keep this change, persist after restart
+                    state: enabled
+
+          - name: Restart firewalld service to load firewall changes
+            service:
+                    name: firewalld
+                    state: reloaded

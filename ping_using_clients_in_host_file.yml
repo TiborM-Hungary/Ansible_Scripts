@@ -1,0 +1,7 @@
+---
+- name: "Pinging clients from the ansible/hosts file"
+  hosts: all
+
+  tasks:
+          - name: Test connectivity
+            ping:

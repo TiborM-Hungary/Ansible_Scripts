@@ -1,0 +1,14 @@
+---
+- name: Copy file to remove client
+  hosts: all
+
+  tasks:
+          - name: Task for copying file
+            become: true #become the user who is logged in and running this playbook
+            copy:
+                    src: /media/playbooks/copy_files/file_01.cfg
+                    dest: /tmp
+                    # options to change/set ownership if I want to
+                    owner: molnat
+                    group: molnat
+                    mode: 0644

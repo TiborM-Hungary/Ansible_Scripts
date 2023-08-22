@@ -1,0 +1,39 @@
+# For this playbook you need 2 modules:
+# Parted and mount
+# In case your ansible installation doesn't have them, run these commands:
+# Parted:
+# ansible-galaxy collection install community.general
+# Mount:
+# ansible-galaxy collection install ansible.posix
+#
+---
+- name: Create and mount new storage
+  hosts: localhost
+
+  tasks:
+          - name: create new partition
+            parted:
+                    name: files
+                    label: gpt
+                    device: /dev/sdb
+                    number: 1
+                    state: present
+                    part_start: 1MiB
+                    part_end: 1GiB
+
+          - name: Create xfs filesystem
+            filesystem:
+                    dev: /dev/sdb1
+                    fstype: xfs
+
+          - name: Create mount directory
+            file:
+                    path: /data
+                    state: directory
+
+          - name: mount the filesystem
+            mount:
+                    src: /dev/sdb1
+                    fstype: xfs
+                    state: mounted
+                    path: /data

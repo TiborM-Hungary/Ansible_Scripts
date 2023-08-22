@@ -1,0 +1,14 @@
+# Add a user with specifics to client
+# name: name of the given play in the playbook (can have more than one)
+# hosts: where do you want to run it (which machine)
+# tasks: the tasks and the modules you want to run with their options
+---
+- name: Playbook for creating users
+  hosts: all
+
+  tasks:
+          - name: Create users
+            user:
+                    name: george
+                    home: /home/george
+                    shell: /bin/bash

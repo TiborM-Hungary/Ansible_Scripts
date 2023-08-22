@@ -1,0 +1,21 @@
+# Schedule a job as a root
+# Every Thursday at 10am
+# Define job (/home/molnat/cfile.sh) to be executed by root
+#
+---
+- name: Create cron job
+  hosts: all
+
+  tasks:
+          - name: Schedule cron
+            cron:
+                    # name of the cronjob
+                    name: This job is scheduled by Ansible
+                    minute: "0"
+                    hour: "10"
+                    day: "*"
+                    month: "*"
+                    weekday: "4"
+                    # user as we run the tasks on the client
+                    user: root
+                    job: "/home/molnat/cfile.sh"

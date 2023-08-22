@@ -1,0 +1,11 @@
+# Note:
+# The cfile.sh just creates a file
+# The file it creates will be place in the home folder of the user running the playbook
+---
+- name: Run a script on a remote machine
+  hosts: all or 192.168.0.222
+
+  tasks:
+          - name: Run shell script
+            shell: "/home/molnat/cfile.sh" # Script location on remote machine
+

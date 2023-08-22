@@ -1,0 +1,9 @@
+---
+- name: Change file permissions
+  hosts: all
+
+  tasks:
+          - name: File Permissions
+            file:
+                    path: /home/molnat/linux2 # the file you want to change
+                    mode: a+w # can use the number (444) or the letter format

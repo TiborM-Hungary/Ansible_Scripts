@@ -1,0 +1,10 @@
+---
+- name: Running multiple things
+  hosts: localhost
+
+  tasks:
+          - name: Test Connectivity
+            ping:
+
+          - name: Printing Hello World
+            debug: msg="Hello World"

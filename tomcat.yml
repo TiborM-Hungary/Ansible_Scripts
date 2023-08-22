@@ -1,0 +1,24 @@
+# Create a directory for tomcat with required permissions
+# Download tomcat from a url and place it in that directory with modified permission
+#
+---
+- name: Download Tomcat from tomcat.apache.org
+  hosts: localhost
+
+  tasks:
+          - name: Create a Directory /opt/tomcat
+            file:
+                    path: /opt/tomcat
+                    state: directory
+                    mode: 0755
+                    owner: root
+                    group: root
+
+          - name: Download Timcat using get_url
+            get_url:
+                    url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.79/bin/apache-tomcat-9.0.79.tar.gz 
+                    dest: /opt/tomcat
+                    mode: 0755
+                    owner: molnat
+                    group: molnat
+                   
